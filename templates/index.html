@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dự đoán vay A16</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 5px;
+            margin-top: 5px;
+        }
+
+        button {
+            margin: 20px auto 0;
+            padding: 10px 20px;
+            display: block;
+            font-size: 16px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Dự đoán kết quả vay</h1>
+    <form method="post" action="/predict">
+        {% for col in columns %}
+        <label for="{{ col }}">{{ col }}</label>
+        {% if unique_values[col] %}
+        <select name="{{ col }}" id="{{ col }}" required>
+            {% for val in unique_values[col] %}
+            <option value="{{ val }}">{{ val }}</option>
+            {% endfor %}
+        </select>
+        {% else %}
+        <input type="number" name="{{ col }}" id="{{ col }}" step="any" required>
+        {% endif %}
+        {% endfor %}
+        <button type="submit">Dự đoán</button>
+    </form>
+</body>
+
+</html>
